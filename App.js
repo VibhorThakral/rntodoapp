@@ -24,6 +24,7 @@ class App extends React.Component {
     try {
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
+      console.log(userInfo);
       this.setState({userInfo, isUserLoggedIn: true});
     } catch (error) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
@@ -68,6 +69,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: 'white',
   },
   text: {
     color: 'red',
