@@ -145,7 +145,6 @@
 				857EF1EA872D441EBEC894A2 /* Pods-rntodoapp-rntodoappTests.debug.xcconfig */,
 				1C22C1ED2111908FA885D76B /* Pods-rntodoapp-rntodoappTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
