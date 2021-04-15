@@ -1,5 +1,6 @@
 import React from 'react';
 import {Text, View, StyleSheet, Image} from 'react-native';
+import Icon from 'react-native-vector-icons/AntDesign';
 import {
   GoogleSignin,
   GoogleSigninButton,
@@ -24,7 +25,6 @@ class App extends React.Component {
     try {
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
-      console.log(userInfo);
       this.setState({userInfo, isUserLoggedIn: true});
     } catch (error) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
@@ -51,6 +51,7 @@ class App extends React.Component {
           </View>
         ) : (
           <View style={styles.container}>
+            <Icon size={100} name="home" color="red" />
             <GoogleSigninButton
               style={styles.btn}
               size={GoogleSigninButton.Size.Wide}
