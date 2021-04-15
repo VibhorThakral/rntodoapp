@@ -27,7 +27,7 @@ class LoginScreen extends Component {
 
         <BasicTextInput
           placeholder="Username or email address"
-          keyboardType="email-address"
+          keyboardType="default"
           getInput={text => this.getUserName(text)}
         />
 
