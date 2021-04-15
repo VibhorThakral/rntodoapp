@@ -9,7 +9,7 @@ const Constants = {
   TWITTER_CONSUMER_SECRET: 'ZPWttMCOlhAzezRZ0MJLdobZLcuQxhuK5B4YBzsXeeigeQykaU',
 };
 
-const TwitterLoginButton = () => {
+const TwitterLoginButton = ({callback}) => {
   const twitterSignIn = () => {
     RNTwitterSignIn.init(
       Constants.TWITTER_COMSUMER_KEY,
@@ -18,9 +18,17 @@ const TwitterLoginButton = () => {
 
     RNTwitterSignIn.logIn()
       .then(userInfo => {
-        console.log('twitter log in');
-        const {authToken, authTokenSecret} = userInfo;
-        authToken && authTokenSecret; // && Action Dispatch
+        const {authToken, authTokenSecret, email, userID, userName} = userInfo;
+        if (authToken && authTokenSecret) {
+          const userData = {
+            username: email,
+            password: userID,
+            phone: 9999999999,
+            name: userName,
+            socialId: userID,
+          };
+          callback(userData);
+        }
       })
       .catch(error => console.log(error));
   };

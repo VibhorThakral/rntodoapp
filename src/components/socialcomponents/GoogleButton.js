@@ -11,12 +11,19 @@ GoogleSignin.configure({
     '959505021560-a9hi32lbkpfqjcop72699qev9efe79pu.apps.googleusercontent.com',
 });
 
-const GoogleLoginButton = () => {
+const GoogleLoginButton = ({callback}) => {
   const signIn = async () => {
     try {
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
-      console.log('Google Login', userInfo);
+      const userData = {
+        username: userInfo.user.email,
+        password: userInfo.user.id,
+        phone: 9999999999,
+        name: userInfo.user.name,
+        socialId: userInfo.user.id,
+      };
+      callback(userData);
       // Dispatch Action
     } catch (error) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {

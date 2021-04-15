@@ -1,9 +1,22 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, Platform} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Platform,
+  Alert,
+} from 'react-native';
 import BasicTextInput from '../components/formcomponents/BasicTextInput';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {GoogleLoginButton} from '../components/socialcomponents/GoogleButton';
 import {TwitterLoginButton} from '../components/socialcomponents/TwitterButton';
+import {connect} from 'react-redux';
+import {
+  authenticateUserSocial,
+  signUpSocial,
+  authenticateUser,
+} from '../services/Login/action';
 
 class LoginScreen extends Component {
   state = {
@@ -13,6 +26,42 @@ class LoginScreen extends Component {
 
   getUserName = text => this.setState({username: text});
   getPassword = text => this.setState({password: text});
+
+  userInfoCallBackSocial = async userInfo => {
+    const authUserSocialcallback = status => {
+      const callback = signupstatus => {
+        signupstatus && this.props.navigation.navigate('HomeScreen');
+      };
+
+      if (status === true) {
+        this.props.navigation.navigate('HomeScreen');
+      } else {
+        this.props.signUpSocial(userInfo, callback);
+      }
+    };
+    this.props.authenticateUserSocial(
+      userInfo.socialId,
+      authUserSocialcallback,
+    );
+  };
+
+  login = async () => {
+    const userInfo = this.state;
+    const loginCallback = message => {
+      console.log(message);
+      if (message === true) {
+        this.props.navigation.navigate('HomeScreen');
+      } else {
+        Alert.alert('Error', message, [
+          {
+            text: 'Close',
+            style: 'cancel',
+          },
+        ]);
+      }
+    };
+    this.props.authenticateUser(userInfo, loginCallback);
+  };
 
   render() {
     const navigation = this.props.navigation;
@@ -39,7 +88,9 @@ class LoginScreen extends Component {
           getInput={text => this.getPassword(text)}
         />
 
-        <TouchableOpacity style={styles.loginButton}>
+        <TouchableOpacity
+          onPress={() => this.login()}
+          style={styles.loginButton}>
           <Ionicons
             style={styles.loginButtonIcon}
             name="ios-checkmark"
@@ -52,8 +103,12 @@ class LoginScreen extends Component {
         <View style={styles.bottomBar}>
           <Text style={styles.bottomBarText}>Login with</Text>
           <View style={styles.bottomBarSocial}>
-            <GoogleLoginButton />
-            <TwitterLoginButton />
+            <GoogleLoginButton
+              callback={value => this.userInfoCallBackSocial(value)}
+            />
+            <TwitterLoginButton
+              callback={value => this.userInfoCallBackSocial(value)}
+            />
           </View>
         </View>
       </View>
@@ -130,4 +185,13 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LoginScreen;
+const mapDispatchToProps = dispatch => ({
+  authenticateUserSocial: (userData, callback) =>
+    dispatch(authenticateUserSocial(userData, callback)),
+  signUpSocial: (userData, callback) =>
+    dispatch(signUpSocial(userData, callback)),
+  authenticateUser: (userData, callback) =>
+    dispatch(authenticateUser(userData, callback)),
+});
+
+export default connect(null, mapDispatchToProps)(LoginScreen);

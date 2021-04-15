@@ -27,6 +27,7 @@ const BasicTextInput = ({
         }}
         placeholder={placeholder}
         style={styles.inputBox}
+        placeholderTextColor="#ccc"
       />
       {type && type === 'password' && (
         <TouchableOpacity
@@ -63,6 +64,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     fontSize: 18,
     padding: 10,
+    color: '#000',
   },
 });
 

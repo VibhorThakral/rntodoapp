@@ -9,8 +9,6 @@ import {
 } from 'react-native';
 import BasicTextInput from '../components/formcomponents/BasicTextInput';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {GoogleLoginButton} from '../components/socialcomponents/GoogleButton';
-import {TwitterLoginButton} from '../components/socialcomponents/TwitterButton';
 import {signUpDirect} from '../services/Login/action';
 import {connect} from 'react-redux';
 
