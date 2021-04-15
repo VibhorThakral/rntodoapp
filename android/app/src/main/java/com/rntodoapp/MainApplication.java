@@ -12,6 +12,7 @@ import com.facebook.soloader.SoLoader;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import co.apptailor.googlesignin.RNGoogleSigninPackage;
+import com.goldenowl.twittersignin.TwitterSigninPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 
