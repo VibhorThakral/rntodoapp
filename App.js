@@ -1,23 +1,15 @@
 import React, {Component} from 'react';
-import {View, StyleSheet} from 'react-native';
-import {
-  GoogleLoginButton,
-  GoogleLogoutButton,
-} from './src/components/socialcomponents/GoogleButton';
-import {
-  TwitterLoginButton,
-  TwitterLogoutButton,
-} from './src/components/socialcomponents/TwitterButton';
+import {SafeAreaView, StyleSheet} from 'react-native';
+import Routes from './src/routes/Routes';
 
 class App extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <GoogleLoginButton />
-        <GoogleLogoutButton />
-        <TwitterLoginButton />
-        <TwitterLogoutButton />
-      </View>
+      <>
+        <SafeAreaView style={styles.container}>
+          <Routes />
+        </SafeAreaView>
+      </>
     );
   }
 }
@@ -25,9 +17,6 @@ class App extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'white',
   },
 });
 

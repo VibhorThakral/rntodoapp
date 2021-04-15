@@ -1,11 +1,6 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  NativeModules,
-  TouchableOpacity,
-} from 'react-native';
+import {StyleSheet, Text, NativeModules, TouchableOpacity} from 'react-native';
+import AntDesignIcon from 'react-native-vector-icons/AntDesign';
 
 const {RNTwitterSignIn} = NativeModules;
 
@@ -31,8 +26,8 @@ const TwitterLoginButton = () => {
   };
 
   return (
-    <TouchableOpacity style={styles.button} onPress={twitterSignIn}>
-      <Text>Login With Twitter</Text>
+    <TouchableOpacity style={styles.loginBtn} onPress={twitterSignIn}>
+      <AntDesignIcon size={30} color="#fff" name="twitter" />
     </TouchableOpacity>
   );
 };
@@ -51,6 +46,14 @@ const TwitterLogoutButton = () => {
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  loginBtn: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#1DA1F2',
+    padding: 10,
+    borderRadius: 100,
+  },
+});
 
 export {TwitterLoginButton, TwitterLogoutButton};

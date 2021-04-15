@@ -4,6 +4,7 @@ import {
   GoogleSignin,
   statusCodes,
 } from '@react-native-google-signin/google-signin';
+import AntDesignIcon from 'react-native-vector-icons/AntDesign';
 
 GoogleSignin.configure({
   iosClientId:
@@ -31,11 +32,9 @@ const GoogleLoginButton = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <TouchableOpacity onPress={signIn} style={styles.logoutView}>
-        <Text style={[styles.profileTxt, styles.logoutTxt]}>Google Login</Text>
-      </TouchableOpacity>
-    </View>
+    <TouchableOpacity onPress={signIn} style={styles.loginBtn}>
+      <AntDesignIcon size={35} color="#fff" name="googleplus" />
+    </TouchableOpacity>
   );
 };
 
@@ -54,18 +53,19 @@ const GoogleLogoutButton = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <TouchableOpacity onPress={signOut} style={styles.logoutView}>
-        <Text style={[styles.profileTxt, styles.logoutTxt]}>Google Logout</Text>
-      </TouchableOpacity>
-    </View>
+    <TouchableOpacity onPress={signOut} style={styles.logoutView}>
+      <Text style={[styles.profileTxt, styles.logoutTxt]}>Google Logout</Text>
+    </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  loginBtn: {
+    backgroundColor: '#DB4437',
     alignItems: 'center',
     justifyContent: 'center',
+    padding: 10,
+    borderRadius: 50,
   },
 });
 
