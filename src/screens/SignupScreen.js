@@ -1,9 +1,18 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, Platform} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Platform,
+  Alert,
+} from 'react-native';
 import BasicTextInput from '../components/formcomponents/BasicTextInput';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {GoogleLoginButton} from '../components/socialcomponents/GoogleButton';
 import {TwitterLoginButton} from '../components/socialcomponents/TwitterButton';
+import {signUpDirect} from '../services/Login/action';
+import {connect} from 'react-redux';
 
 class SignupScreen extends Component {
   state = {
@@ -11,12 +20,31 @@ class SignupScreen extends Component {
     username: '',
     password: '',
     repassword: '',
+    phone: '',
   };
 
   getEmail = text => this.setState({emai: text});
   getUserName = text => this.setState({username: text});
   getPassword = text => this.setState({password: text});
   getRePassword = text => this.setState({repassword: text});
+  getPhone = text => this.setState({phone: text});
+
+  signUp = () => {
+    const userData = this.state;
+    const callback = message => {
+      if (message === true) {
+        this.props.navigation.navigate('HomeScreen');
+      } else {
+        Alert.alert('Error', message, [
+          {
+            text: 'Close',
+            style: 'cancel',
+          },
+        ]);
+      }
+    };
+    this.props.signUpDirect(userData, callback);
+  };
 
   render() {
     const navigation = this.props.navigation;
@@ -42,6 +70,12 @@ class SignupScreen extends Component {
         />
 
         <BasicTextInput
+          placeholder="Phone Number"
+          keyboardType="number-pad"
+          getInput={text => this.getPhone(text)}
+        />
+
+        <BasicTextInput
           placeholder="Password"
           keyboardType="default"
           secureTextEntry={true}
@@ -57,7 +91,9 @@ class SignupScreen extends Component {
           getInput={text => this.getRePassword(text)}
         />
 
-        <TouchableOpacity style={styles.loginButton}>
+        <TouchableOpacity
+          style={styles.loginButton}
+          onPress={() => this.signUp()}>
           <Ionicons
             style={styles.loginButtonIcon}
             name="ios-checkmark"
@@ -131,7 +167,6 @@ const styles = StyleSheet.create({
   },
   bottomBar: {
     alignItems: 'center',
-    marginTop: '50%',
   },
   bottomBarText: {
     color: 'gray',
@@ -139,4 +174,9 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SignupScreen;
+const mapDispatchToProps = dispatch => ({
+  signUpDirect: (userData, callback) =>
+    dispatch(signUpDirect(userData, callback)),
+});
+
+export default connect(null, mapDispatchToProps)(SignupScreen);
