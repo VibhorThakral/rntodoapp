@@ -6,6 +6,7 @@ import {
   GoogleSigninButton,
   statusCodes,
 } from '@react-native-google-signin/google-signin';
+import TwitterButton from './TwitterButton';
 
 GoogleSignin.configure({
   iosClientId:
@@ -58,6 +59,7 @@ class App extends React.Component {
               color={GoogleSigninButton.Color.Dark}
               onPress={this.signIn}
             />
+            <TwitterButton style={styles.button} />
           </View>
         )}
       </View>
@@ -86,6 +88,9 @@ const styles = StyleSheet.create({
     height: 100,
     width: 100,
     borderRadius: 50,
+  },
+  button: {
+    height: 50,
   },
 });
 

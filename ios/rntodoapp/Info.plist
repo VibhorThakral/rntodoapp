@@ -39,6 +39,11 @@
 	<string>1.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>twitter</string>
+		<string>twitterauth</string>
+	</array>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -46,10 +51,12 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
+				<string>twitterkit-PQRU4sYCBe4EJI1cKFQkSrfZf</string>
 				<string>com.googleusercontent.apps.959505021560-a9hi32lbkpfqjcop72699qev9efe79pu</string>
 			</array>
 		</dict>
 	</array>
+	
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
