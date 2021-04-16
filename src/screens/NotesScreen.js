@@ -57,7 +57,10 @@ class NotesScreen extends Component {
           <FeatherIcon name="chevron-left" color="#383972" size={30} />
           <Text style={styles.notesNavText}>My Notes</Text>
         </TouchableOpacity>
-        <HeaderComp title={Title} count={Notes.length} />
+        <HeaderComp
+          title={Title}
+          count={Notes !== undefined ? Notes.length : 0}
+        />
         <View style={styles.notesList}>
           {this.props.notes !== undefined && (
             <FlatList

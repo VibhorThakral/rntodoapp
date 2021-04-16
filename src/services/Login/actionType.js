@@ -14,3 +14,6 @@ export const SIGNUP_SOCIAL = 'SIGNUP_SOCIAL';
 
 // To Signup Users with username & password
 export const SIGNUP_DIRECT = 'SIGNUP_DIRECT';
+
+// To Logout users
+export const LOGOUT = 'LOGOUT';

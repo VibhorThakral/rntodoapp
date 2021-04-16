@@ -7,10 +7,8 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-
 import {connect} from 'react-redux';
 import {getNotes} from '../services/Home/action';
-
 class MenuScreen extends Component {
   componentDidUpdate(prevProps) {
     if (prevProps.userId !== this.props.userId) {
@@ -79,9 +77,8 @@ class MenuScreen extends Component {
         </Text>
         <ScrollView>{this.renderCategoryList()}</ScrollView>
         <View style={styles.bottomBar}>
-          <TouchableOpacity style={styles.bottomBarDrawerToggle}>
-            <Ionicons size={60} color="#383972" name="menu-outline" />
-            <Text style={styles.bottomBarMenuText}>Menu</Text>
+          <TouchableOpacity onPress={() => this.props.navigation.openDrawer()}>
+            <Ionicons size={70} color="#383972" name="menu-outline" />
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => this.props.navigation.navigate('AddNoteScreen')}>
@@ -144,15 +141,7 @@ const styles = StyleSheet.create({
   bottomBar: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-  },
-  bottomBarDrawerToggle: {
     alignItems: 'center',
-  },
-  bottomBarMenuText: {
-    color: '#E62D1D',
-    letterSpacing: 2,
-    fontSize: 12,
-    marginTop: -5,
   },
 });
 

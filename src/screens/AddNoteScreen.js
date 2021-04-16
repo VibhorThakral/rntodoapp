@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import BasicTextInput from '../components/formcomponents/BasicTextInput';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import FeatherIcon from 'react-native-vector-icons/Feather';
 import {addNote} from '../services/Home/action';
 import {connect} from 'react-redux';
 
@@ -23,6 +24,12 @@ class AddNoteScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <TouchableOpacity
+          onPress={() => this.props.navigation.navigate('MenuScreen')}
+          style={styles.notesNav}>
+          <FeatherIcon name="chevron-left" color="#383972" size={30} />
+          <Text style={styles.notesNavText}>My Notes</Text>
+        </TouchableOpacity>
         <Text style={styles.heading}>
           <Text>Add </Text>
           <Text style={styles.colorBlue}>Note</Text>
@@ -68,7 +75,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#E62D1D',
     letterSpacing: 1.5,
-    marginBottom: 30,
+    marginVertical: 20,
   },
   colorBlue: {
     color: '#383972',
@@ -93,6 +100,16 @@ const styles = StyleSheet.create({
   btnWrapper: {
     flex: 0.9,
     justifyContent: 'flex-end',
+  },
+  notesNav: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    position: 'absolute',
+  },
+  notesNavText: {
+    color: '#383972',
+    fontSize: 16,
   },
 });
 
