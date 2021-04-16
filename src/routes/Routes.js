@@ -11,7 +11,7 @@ const Routes = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="LoginScreen"
+        initialRouteName="HomeScreen"
         keyboardHandlingEnabled
         mode="modal"
         screenOptions={{headerShown: false}}>
