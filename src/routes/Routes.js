@@ -1,7 +1,7 @@
 import React from 'react';
 import LoginScreen from '../screens/LoginScreen';
 import SignupScreen from '../screens/SignupScreen';
-import HomeScreen from '../screens/HomeScreen';
+import NotesScreen from '../screens/NotesScreen';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import MenuScreen from '../screens/MenuScreen';
@@ -14,11 +14,11 @@ const Routes = () => {
       <Stack.Navigator
         initialRouteName="LoginScreen"
         keyboardHandlingEnabled
-        mode="modal"
+        mode="card"
         screenOptions={{headerShown: false}}>
         <Stack.Screen name="LoginScreen" component={LoginScreen} />
         <Stack.Screen name="SignupScreen" component={SignupScreen} />
-        <Stack.Screen name="HomeScreen" component={HomeScreen} />
+        <Stack.Screen name="NotesScreen" component={NotesScreen} />
         <Stack.Screen name="MenuScreen" component={MenuScreen} />
       </Stack.Navigator>
     </NavigationContainer>

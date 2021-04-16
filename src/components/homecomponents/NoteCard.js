@@ -1,14 +1,13 @@
 import React from 'react';
 import {View, Text, StyleSheet, Platform} from 'react-native';
 
-const NoteCard = ({}) => {
+const NoteCard = ({notesData}) => {
+  const {createdDate, data} = notesData;
+
   return (
     <View style={styles.container}>
-      <Text style={styles.date}>Note card Date</Text>
-      <Text style={styles.noteContent}>
-        Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio.
-        Quisque volutpat mattis eros.
-      </Text>
+      <Text style={styles.date}>{Date(createdDate)}</Text>
+      <Text style={styles.noteContent}>{data}</Text>
     </View>
   );
 };
