@@ -1,52 +1,59 @@
-import React from 'react';
-import {View, StyleSheet} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {View, StyleSheet, TouchableOpacity} from 'react-native';
 import {
-  useTheme,
   Avatar,
   Title,
-  Caption,
-  Paragraph,
   Drawer,
   Text,
   TouchableRipple,
   Switch,
 } from 'react-native-paper';
-import {DrawerItem} from '@react-navigation/drawer';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {logOut} from '../services/Login/action';
 import {useDispatch} from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export function DrawerContent(props) {
   const dispatch = useDispatch();
+  const [username, setUsername] = useState('');
   const signOut = () => {
     dispatch(logOut());
     props.navigation.navigate('LoginScreen');
   };
 
+  useEffect(() => {
+    (async function getData() {
+      try {
+        const user_name = await AsyncStorage.getItem('@user_name');
+        setUsername(user_name);
+      } catch (e) {
+        console.log(e);
+      }
+    })();
+  });
+
   return (
     <View style={styles.container}>
       <View style={styles.drawerContent}>
-        <View style={styles.userInfoSection}>
-          <View style={styles.userView}>
-            <Avatar.Image
-              source={{
-                uri: 'https://api.adorable.io/avatars/50/abott@adorable.png',
-              }}
-              size={50}
-            />
-            <View>
-              <Title style={styles.title}>John Doe</Title>
-            </View>
+        <View style={styles.userView}>
+          <Avatar.Image
+            source={{
+              uri: 'https://source.unsplash.com/1600x900/?man,woman',
+            }}
+            size={100}
+          />
+          <View>
+            <Title style={styles.title}>{username}</Title>
           </View>
         </View>
 
-        <Drawer.Section title="Preferences">
+        <Drawer.Section>
           <TouchableRipple
             onPress={() => {
               console.log('Hello');
             }}>
             <View style={styles.preference}>
-              <Text>Dark Theme</Text>
+              <Text style={styles.themeToggleText}>Dark Theme</Text>
               <View pointerEvents="none">
                 <Switch />
               </View>
@@ -54,15 +61,12 @@ export function DrawerContent(props) {
           </TouchableRipple>
         </Drawer.Section>
       </View>
-      <Drawer.Section style={styles.bottomDrawerSection}>
-        <DrawerItem
-          icon={({color, size}) => (
-            <Icon name="exit-to-app" color={color} size={size} />
-          )}
-          label="Sign Out"
-          onPress={() => signOut()}
-        />
-      </Drawer.Section>
+      <TouchableOpacity
+        onPress={() => signOut()}
+        style={styles.bottomDrawerSection}>
+        <Icon name="exit-to-app" color={'#E62D1D'} size={30} />
+        <Text style={styles.logoutText}>Log Out</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -70,51 +74,51 @@ export function DrawerContent(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginTop: 20,
   },
   drawerContent: {
     flex: 1,
   },
   userView: {
     marginTop: 15,
-  },
-  userInfoSection: {
-    paddingLeft: 20,
+    alignItems: 'center',
+    marginBottom: 30,
   },
   title: {
-    fontSize: 16,
-    marginTop: 3,
+    fontSize: 26,
+    marginTop: 15,
     fontWeight: 'bold',
-  },
-  caption: {
-    fontSize: 14,
-    lineHeight: 14,
-  },
-  row: {
-    marginTop: 20,
-    flexDirection: 'row',
-    alignItems: 'center',
+    color: '#383972',
   },
   section: {
     flexDirection: 'row',
     alignItems: 'center',
     marginRight: 15,
   },
-  paragraph: {
-    fontWeight: 'bold',
-    marginRight: 3,
-  },
   drawerSection: {
     marginTop: 15,
   },
   bottomDrawerSection: {
     marginBottom: 15,
-    borderTopColor: '#f4f4f4',
-    borderTopWidth: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginLeft: 20,
+  },
+  logoutText: {
+    fontSize: 20,
+    color: '#E62D1D',
+    fontWeight: '800',
+    marginLeft: 10,
   },
   preference: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingVertical: 12,
     paddingHorizontal: 16,
+  },
+  themeToggleText: {
+    color: '#383972',
+    fontSize: 16,
+    fontWeight: '500',
   },
 });

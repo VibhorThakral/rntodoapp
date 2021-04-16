@@ -29,7 +29,10 @@ export const signUpDirect = (userInfo, callback) => async dispatch => {
     callback(status);
     dispatch({
       type: SIGNUP_DIRECT,
-      payload: body.id,
+      payload: {
+        id: body.id,
+        name: username,
+      },
     });
   } else {
     callback(message);
@@ -38,6 +41,7 @@ export const signUpDirect = (userInfo, callback) => async dispatch => {
 
 export const authenticateUserSocial = (
   socialId,
+  name,
   callback,
 ) => async dispatch => {
   const response = await fetch(`${URL + AUTHENTICATE}`, {
@@ -53,7 +57,10 @@ export const authenticateUserSocial = (
     callback(status);
     dispatch({
       type: AUTHENTICATE_USER_SOCIAL,
-      payload: id,
+      payload: {
+        id,
+        name,
+      },
     });
   } else {
     callback(status);
@@ -81,7 +88,10 @@ export const signUpSocial = (userInfo, callback) => async dispatch => {
     callback(status);
     dispatch({
       type: SIGNUP_SOCIAL,
-      payload: body.id,
+      payload: {
+        id: body.id,
+        name,
+      },
     });
   } else {
     callback(message);
@@ -103,7 +113,10 @@ export const authenticateUser = (userInfo, callback) => async dispatch => {
     callback(status);
     dispatch({
       type: AUTHENTICATE_USER,
-      payload: id,
+      payload: {
+        id,
+        name: username,
+      },
     });
   } else {
     callback(message);
