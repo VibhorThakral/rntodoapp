@@ -3,7 +3,7 @@ import {
   View,
   Text,
   StyleSheet,
-  ScrollView,
+  Alert,
   TouchableOpacity,
   FlatList,
 } from 'react-native';
@@ -11,11 +11,41 @@ import HeaderComp from '../components/homecomponents/HeaderComp';
 import NoteCard from '../components/homecomponents/NoteCard';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import {connect} from 'react-redux';
+import {deleteNote, getNotes} from '../services/Home/action';
 
 class NotesScreen extends Component {
+  state = {
+    renderFlag: true,
+    refreshing: false,
+  };
+
+  deleteNote = noteId => {
+    Alert.alert('Delete Note', 'Are you sure you want to delete this note?', [
+      {
+        text: 'Cancel',
+        style: 'cancel',
+      },
+      {
+        text: 'Yes',
+        style: 'destructive',
+        onPress: () => {
+          this.props.deleteNote(this.props.userId, noteId);
+          this.setState({renderFlag: !this.state.renderFlag});
+        },
+      },
+    ]);
+  };
+
+  fetchNotes = () => {
+    this.setState({refreshing: true});
+    this.props.getNotes(this.props.userId);
+    this.setState({refreshing: false});
+  };
+
   render() {
-    const {Title, Count} = this.props.route.params;
+    const {Title} = this.props.route.params;
     let Notes;
+
     if (this.props.notes !== undefined) {
       Notes = this.props.notes.filter(note => note.title === Title);
     }
@@ -27,14 +57,21 @@ class NotesScreen extends Component {
           <FeatherIcon name="chevron-left" color="#383972" size={30} />
           <Text style={styles.notesNavText}>My Notes</Text>
         </TouchableOpacity>
-        <HeaderComp title={Title} count={Count} />
+        <HeaderComp title={Title} count={Notes.length} />
         <View style={styles.notesList}>
           {this.props.notes !== undefined && (
             <FlatList
               showsVerticalScrollIndicator={false}
               data={Notes}
               keyExtractor={item => item.id}
-              renderItem={item => <NoteCard notesData={item.item} />}
+              refreshing={this.state.refreshing}
+              onRefresh={this.fetchNotes}
+              renderItem={item => (
+                <NoteCard
+                  deleteNote={value => this.deleteNote(value)}
+                  notesData={item.item}
+                />
+              )}
             />
           )}
         </View>
@@ -70,7 +107,13 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
+  userId: state.login.userId,
   notes: state.home.notes,
 });
 
-export default connect(mapStateToProps)(NotesScreen);
+const mapDispatchToProps = dispatch => ({
+  deleteNote: (uid, nid) => dispatch(deleteNote(uid, nid)),
+  getNotes: value => dispatch(getNotes(value)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(NotesScreen);
