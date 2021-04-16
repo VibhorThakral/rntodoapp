@@ -83,7 +83,8 @@ class MenuScreen extends Component {
             <Ionicons size={60} color="#383972" name="menu-outline" />
             <Text style={styles.bottomBarMenuText}>Menu</Text>
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => this.props.navigation.navigate('AddNoteScreen')}>
             <Ionicons name="ios-add-circle-sharp" size={70} color="#E62D1D" />
           </TouchableOpacity>
         </View>

@@ -5,6 +5,7 @@ import NotesScreen from '../screens/NotesScreen';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import MenuScreen from '../screens/MenuScreen';
+import AddNoteScreen from '../screens/AddNoteScreen';
 
 const Stack = createStackNavigator();
 
@@ -20,6 +21,7 @@ const Routes = () => {
         <Stack.Screen name="SignupScreen" component={SignupScreen} />
         <Stack.Screen name="NotesScreen" component={NotesScreen} />
         <Stack.Screen name="MenuScreen" component={MenuScreen} />
+        <Stack.Screen name="AddNoteScreen" component={AddNoteScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

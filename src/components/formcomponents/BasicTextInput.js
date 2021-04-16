@@ -9,6 +9,9 @@ const BasicTextInput = ({
   secureTextEntry,
   type,
   getInput,
+  multiline,
+  maxLength,
+  customStyle,
 }) => {
   const [input, setInput] = useState('');
   const [secure, setSecure] = useState(secureTextEntry);
@@ -26,8 +29,10 @@ const BasicTextInput = ({
           getInput(text);
         }}
         placeholder={placeholder}
-        style={styles.inputBox}
+        style={[styles.inputBox, customStyle]}
         placeholderTextColor="#ccc"
+        multiline={multiline}
+        maxLength={maxLength}
       />
       {type && type === 'password' && (
         <TouchableOpacity
