@@ -31,7 +31,7 @@ class SignupScreen extends Component {
     const userData = this.state;
     const callback = message => {
       if (message === true) {
-        this.props.navigation.navigate('HomeScreen');
+        this.props.navigation.navigate('MenuScreen');
       } else {
         Alert.alert('Error', message, [
           {

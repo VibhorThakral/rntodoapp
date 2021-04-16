@@ -1,8 +1,8 @@
 /* API URL */
-const URL = 'https://e07e9662f93a.ngrok.io';
+const URL = 'https://487fbcc7d9f6.ngrok.io';
 const USERS = '/api/users';
 const AUTHENTICATE = '/api/authenticate';
-const NOTES = '/api/notes';
+const NOTES = '/api/notes/';
 
 export {URL, USERS, AUTHENTICATE, NOTES};
 

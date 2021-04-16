@@ -30,11 +30,11 @@ class LoginScreen extends Component {
   userInfoCallBackSocial = async userInfo => {
     const authUserSocialcallback = status => {
       const callback = signupstatus => {
-        signupstatus && this.props.navigation.navigate('HomeScreen');
+        signupstatus && this.props.navigation.navigate('MenuScreen');
       };
 
       if (status === true) {
-        this.props.navigation.navigate('HomeScreen');
+        this.props.navigation.navigate('MenuScreen');
       } else {
         this.props.signUpSocial(userInfo, callback);
       }
@@ -48,9 +48,8 @@ class LoginScreen extends Component {
   login = async () => {
     const userInfo = this.state;
     const loginCallback = message => {
-      console.log(message);
       if (message === true) {
-        this.props.navigation.navigate('HomeScreen');
+        this.props.navigation.navigate('MenuScreen');
       } else {
         Alert.alert('Error', message, [
           {
@@ -188,8 +187,10 @@ const styles = StyleSheet.create({
 const mapDispatchToProps = dispatch => ({
   authenticateUserSocial: (userData, callback) =>
     dispatch(authenticateUserSocial(userData, callback)),
+
   signUpSocial: (userData, callback) =>
     dispatch(signUpSocial(userData, callback)),
+
   authenticateUser: (userData, callback) =>
     dispatch(authenticateUser(userData, callback)),
 });
