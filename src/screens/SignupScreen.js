@@ -27,6 +27,58 @@ class SignupScreen extends Component {
   getRePassword = text => this.setState({repassword: text});
   getPhone = text => this.setState({phone: text});
 
+  validateText = () => {
+    const {username, password, email, repassword, phone} = this.state;
+    let passCheck = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
+    // Password must have at least one number and at least one special character.
+    let usernameCheck = /^[a-z0-9_-]{4,16}$/;
+    // Alphanumeric string that may include _ and – having a length of 3 to 16 characters.
+    let phonenoCheck = /^(\+)?([ 0-9]){10,16}$/;
+    let emailCheck = /(.+)@(.+){2,}\.(.+){2,}/;
+
+    if (username === '') {
+      Alert.alert('Empty Username', 'Please Fill the Username');
+    } else if (password === '') {
+      Alert.alert('Empty Password', 'Please Fill the Password');
+    } else if (email === '') {
+      Alert.alert('Empty Email', 'Please Fill the Email');
+    } else if (repassword === '') {
+      Alert.alert('Empty Repeat-Password', 'Please Fill the Repeat-Password');
+    } else if (phone === '') {
+      Alert.alert('Empty Phone', 'Please Fill the Phone');
+    } else if (!usernameCheck.test(username)) {
+      Alert.alert(
+        'Username',
+        'Username may include _ and – having a length of 4 to 16 characters.',
+      );
+    } else if (!emailCheck.test(email)) {
+      Alert.alert('Email', 'Invalid Email, Email must have @.');
+    } else if (!phonenoCheck.test(phone)) {
+      Alert.alert('Phone', 'Phone Number must have + 91, Ex +91 9999999999');
+    } else if (!passCheck.test(password)) {
+      Alert.alert(
+        'Password',
+        'Password must have at least one number and at least one special character.',
+      );
+    } else if (!passCheck.test(repassword)) {
+      Alert.alert(
+        'Repeat Password',
+        'Password must have at least one number and at least one special character.',
+      );
+    } else if (password !== repassword) {
+      Alert.alert('Password', 'Repeat Password does not match your password');
+    } else {
+      this.signUp();
+      this.setState({
+        username: '',
+        password: '',
+        email: '',
+        rePassword: '',
+        phone: '',
+      });
+    }
+  };
+
   signUp = () => {
     const userData = this.state;
     const callback = message => {
@@ -91,7 +143,7 @@ class SignupScreen extends Component {
 
         <TouchableOpacity
           style={styles.loginButton}
-          onPress={() => this.signUp()}>
+          onPress={() => this.validateText()}>
           <Ionicons
             style={styles.loginButtonIcon}
             name="ios-checkmark"

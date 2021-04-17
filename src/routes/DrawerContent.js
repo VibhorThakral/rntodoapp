@@ -1,13 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import {View, StyleSheet, TouchableOpacity} from 'react-native';
-import {
-  Avatar,
-  Title,
-  Drawer,
-  Text,
-  TouchableRipple,
-  Switch,
-} from 'react-native-paper';
+import {View, StyleSheet, TouchableOpacity, Switch} from 'react-native';
+import {Avatar, Title, Drawer, Text, TouchableRipple} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {logOut} from '../services/Login/action';
 import {useDispatch} from 'react-redux';
@@ -16,6 +9,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export function DrawerContent(props) {
   const dispatch = useDispatch();
   const [username, setUsername] = useState('');
+  const [isEnable, setIsEnable] = useState(false);
+  const isOn = () => {
+    setIsEnable(prevState => !prevState);
+  };
   const signOut = () => {
     dispatch(logOut());
     props.navigation.navigate('LoginScreen');
@@ -47,19 +44,18 @@ export function DrawerContent(props) {
           </View>
         </View>
 
-        <Drawer.Section>
-          <TouchableRipple
-            onPress={() => {
-              console.log('Hello');
-            }}>
-            <View style={styles.preference}>
-              <Text style={styles.themeToggleText}>Dark Theme</Text>
-              <View pointerEvents="none">
-                <Switch />
-              </View>
-            </View>
-          </TouchableRipple>
-        </Drawer.Section>
+        <View style={styles.preference}>
+          <Text style={styles.themeToggleText}>Dark Theme</Text>
+          <View>
+            <Switch
+              style={styles.switch}
+              trackColor={{true: '#383972', false: 'grey'}}
+              thumbColor={isEnable ? '#fff' : '#ccc'}
+              onValueChange={isOn}
+              value={isEnable}
+            />
+          </View>
+        </View>
       </View>
       <TouchableOpacity
         onPress={() => signOut()}
@@ -118,7 +114,7 @@ const styles = StyleSheet.create({
   },
   themeToggleText: {
     color: '#383972',
-    fontSize: 16,
+    fontSize: 20,
     fontWeight: '500',
   },
 });

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity, Alert} from 'react-native';
 import BasicTextInput from '../components/formcomponents/BasicTextInput';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FeatherIcon from 'react-native-vector-icons/Feather';
@@ -14,6 +14,21 @@ class AddNoteScreen extends Component {
 
   getTitle = text => this.setState({title: text});
   getData = text => this.setState({data: text});
+
+  validateText = () => {
+    const {title, data} = this.state;
+    if (title === '') {
+      Alert.alert('Empty Title', 'Please Fill the Title');
+    } else if (data === '') {
+      Alert.alert('Empty Note', 'Please Fill the Note');
+    } else {
+      this.newNote();
+      this.setState({
+        title: '',
+        data: '',
+      });
+    }
+  };
 
   newNote = () => {
     const {title, data} = this.state;
@@ -52,7 +67,7 @@ class AddNoteScreen extends Component {
         </View>
         <View style={styles.btnWrapper}>
           <TouchableOpacity
-            onPress={() => this.newNote()}
+            onPress={() => this.validateText()}
             style={styles.addBtn}>
             <Ionicons name="ios-add-circle-outline" size={30} color="#fff" />
             <Text style={styles.addBtnText}>Add Note</Text>

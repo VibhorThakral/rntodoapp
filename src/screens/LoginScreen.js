@@ -27,6 +27,21 @@ class LoginScreen extends Component {
   getUserName = text => this.setState({username: text});
   getPassword = text => this.setState({password: text});
 
+  validateText = () => {
+    const {username, password} = this.state;
+    if (username === '') {
+      Alert.alert('Empty Username', 'Please Fill the Username');
+    } else if (password === '') {
+      Alert.alert('Empty Password', 'Please Fill the Password');
+    } else {
+      this.login();
+      this.setState({
+        username: '',
+        password: '',
+      });
+    }
+  };
+
   userInfoCallBackSocial = async userInfo => {
     const authUserSocialcallback = status => {
       const callback = signupstatus => {
@@ -89,7 +104,7 @@ class LoginScreen extends Component {
         />
 
         <TouchableOpacity
-          onPress={() => this.login()}
+          onPress={() => this.validateText()}
           style={styles.loginButton}>
           <Ionicons
             style={styles.loginButtonIcon}
