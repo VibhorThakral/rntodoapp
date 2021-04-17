@@ -56,7 +56,7 @@ class Routes extends Component {
               options={{
                 gestureEnabled: false,
               }}
-              name="SignUpScreen"
+              name="SignupScreen"
               component={SignupScreen}
             />
             <Drawer.Screen name="MenuScreen" component={MenuScreen} />

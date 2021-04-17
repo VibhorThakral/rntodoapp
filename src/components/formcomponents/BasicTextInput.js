@@ -17,6 +17,7 @@ const BasicTextInput = ({
   const [input, setInput] = useState('');
   const [secure, setSecure] = useState(secureTextEntry);
   const dark = useSelector(state => state.home.themeDark);
+  const user = useSelector(state => state.login.userId);
 
   return (
     <View style={styles.inputViewWrapper}>
@@ -31,7 +32,11 @@ const BasicTextInput = ({
           getInput(text);
         }}
         placeholder={placeholder}
-        style={[styles.inputBox, customStyle, dark && darkTheme.inputBox]}
+        style={[
+          styles.inputBox,
+          customStyle,
+          dark && user && darkTheme.inputBox,
+        ]}
         placeholderTextColor="#ccc"
         multiline={multiline}
         maxLength={maxLength}

@@ -44,6 +44,7 @@ class LoginScreen extends Component {
 
   userInfoCallBackSocial = async userInfo => {
     const authUserSocialcallback = status => {
+      console.log('Auth User Social Callback', status);
       const callback = signupstatus => {
         signupstatus && this.props.navigation.navigate('MenuScreen');
       };
@@ -51,6 +52,7 @@ class LoginScreen extends Component {
       if (status === true) {
         this.props.navigation.navigate('MenuScreen');
       } else {
+        console.log('If Else Block -> Else: ', userInfo);
         this.props.signUpSocial(userInfo, callback);
       }
     };
