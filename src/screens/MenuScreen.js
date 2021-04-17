@@ -17,6 +17,7 @@ class MenuScreen extends Component {
   }
 
   renderCategoryList = () => {
+    const dark = this.props.themeDark;
     const categories = {};
     let lastNoteTitle;
     if (this.props.notes) {
@@ -49,16 +50,24 @@ class MenuScreen extends Component {
           <Text
             style={[
               styles.categoryTitle,
+              dark && darkTheme.categoryTitle,
               activeTitle && styles.activeCountTitle,
+              dark && activeTitle && darkTheme.colorRed,
             ]}>
             {item[0]}
           </Text>
           <View
-            style={[styles.countView, activeTitle && styles.activeCountView]}>
+            style={[
+              styles.countView,
+              activeTitle && styles.activeCountView,
+              dark && activeTitle && darkTheme.countView,
+            ]}>
             <Text
               style={[
                 styles.categoryCount,
+                dark && darkTheme.categoryCount,
                 activeTitle && styles.activeCountText,
+                dark && activeTitle && darkTheme.colorRed,
               ]}>
               {item[1]}
             </Text>
@@ -69,20 +78,31 @@ class MenuScreen extends Component {
   };
 
   render() {
+    const dark = this.props.themeDark;
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, dark && darkTheme.container]}>
         <Text style={styles.title}>
-          <Text>My </Text>
-          <Text style={styles.colorBlue}>Notes</Text>
+          <Text style={dark && darkTheme.colorRed}>My </Text>
+          <Text style={[styles.colorBlue, dark && darkTheme.heading]}>
+            Notes
+          </Text>
         </Text>
         <ScrollView>{this.renderCategoryList()}</ScrollView>
         <View style={styles.bottomBar}>
           <TouchableOpacity onPress={() => this.props.navigation.openDrawer()}>
-            <Ionicons size={70} color="#383972" name="menu-outline" />
+            <Ionicons
+              size={70}
+              color={dark ? 'white' : '#383972'}
+              name="menu-outline"
+            />
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => this.props.navigation.navigate('AddNoteScreen')}>
-            <Ionicons name="ios-add-circle-sharp" size={70} color="#E62D1D" />
+            <Ionicons
+              name="ios-add-circle-sharp"
+              size={70}
+              color={dark ? '#ed5b4e' : '#E62D1D'}
+            />
           </TouchableOpacity>
         </View>
       </View>
@@ -145,9 +165,31 @@ const styles = StyleSheet.create({
   },
 });
 
+const darkTheme = StyleSheet.create({
+  container: {
+    backgroundColor: '#262626',
+  },
+  heading: {
+    color: 'white',
+  },
+  categoryTitle: {
+    color: 'white',
+  },
+  categoryCount: {
+    color: 'white',
+  },
+  colorRed: {
+    color: '#ed5b4e',
+  },
+  countView: {
+    backgroundColor: 'rgba(237, 91, 78, 0.25)',
+  },
+});
+
 const mapStateToProps = state => ({
   userId: state.login.userId,
   notes: state.home.notes,
+  themeDark: state.home.themeDark,
 });
 
 const mapDispatchToProps = dispatch => ({

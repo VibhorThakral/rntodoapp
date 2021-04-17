@@ -1,19 +1,28 @@
 import React from 'react';
 import {View, Text, StyleSheet, Platform, TouchableOpacity} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {useSelector} from 'react-redux';
 
 const NoteCard = ({notesData, deleteNote}) => {
+  const dark = useSelector(state => state.home.themeDark);
+  console.log(dark);
   const {createdDate, data, id} = notesData;
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, dark && darkTheme.container]}>
       <View style={styles.dateView}>
-        <Text style={styles.date}>{createdDate}</Text>
+        <Text style={[styles.date, dark && darkTheme.date]}>{createdDate}</Text>
         <TouchableOpacity onPress={() => deleteNote(id)}>
-          <Ionicons size={25} color="#383972" name="ios-close" />
+          <Ionicons
+            size={25}
+            color={dark ? 'white' : '#383972'}
+            name="ios-close"
+          />
         </TouchableOpacity>
       </View>
-      <Text style={styles.noteContent}>{data}</Text>
+      <Text style={[styles.noteContent, dark && darkTheme.noteContent]}>
+        {data}
+      </Text>
     </View>
   );
 };
@@ -57,6 +66,18 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 5,
+  },
+});
+
+const darkTheme = StyleSheet.create({
+  container: {
+    backgroundColor: '#383972',
+  },
+  noteContent: {
+    color: 'white',
+  },
+  date: {
+    color: '#ed5b4e',
   },
 });
 

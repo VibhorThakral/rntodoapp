@@ -5,17 +5,25 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {logOut} from '../services/Login/action';
 import {useDispatch} from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {TOGGLE_THEME} from '../services/Home/actionType';
 
 export function DrawerContent(props) {
   const dispatch = useDispatch();
   const [username, setUsername] = useState('');
   const [isEnable, setIsEnable] = useState(false);
   const isOn = () => {
+    toggleTheme();
     setIsEnable(prevState => !prevState);
   };
   const signOut = () => {
     dispatch(logOut());
     props.navigation.navigate('LoginScreen');
+  };
+
+  const toggleTheme = () => {
+    dispatch({
+      type: TOGGLE_THEME,
+    });
   };
 
   useEffect(() => {

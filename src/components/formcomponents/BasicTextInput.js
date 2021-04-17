@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {View, TextInput, StyleSheet} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {useSelector} from 'react-redux';
 
 const BasicTextInput = ({
   placeholder,
@@ -15,6 +16,7 @@ const BasicTextInput = ({
 }) => {
   const [input, setInput] = useState('');
   const [secure, setSecure] = useState(secureTextEntry);
+  const dark = useSelector(state => state.home.themeDark);
 
   return (
     <View style={styles.inputViewWrapper}>
@@ -29,7 +31,7 @@ const BasicTextInput = ({
           getInput(text);
         }}
         placeholder={placeholder}
-        style={[styles.inputBox, customStyle]}
+        style={[styles.inputBox, customStyle, dark && darkTheme.inputBox]}
         placeholderTextColor="#ccc"
         multiline={multiline}
         maxLength={maxLength}
@@ -70,6 +72,13 @@ const styles = StyleSheet.create({
     fontSize: 18,
     padding: 10,
     color: '#000',
+  },
+});
+
+const darkTheme = StyleSheet.create({
+  inputBox: {
+    backgroundColor: '#262626',
+    color: 'white',
   },
 });
 

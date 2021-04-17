@@ -1,7 +1,8 @@
-import {GET_NOTES, ADD_NOTE, DELETE_NOTE} from './actionType';
+import {GET_NOTES, ADD_NOTE, DELETE_NOTE, TOGGLE_THEME} from './actionType';
 
 const initialState = {
   notes: undefined,
+  themeDark: false,
 };
 
 export default function HomeReducer(state = initialState, action) {
@@ -19,6 +20,11 @@ export default function HomeReducer(state = initialState, action) {
       return {
         ...state,
         notes: state.notes.filter(item => item.id !== action.payload),
+      };
+    case TOGGLE_THEME:
+      return {
+        ...state,
+        themeDark: !state.themeDark,
       };
     default:
       return state;

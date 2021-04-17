@@ -43,6 +43,7 @@ class NotesScreen extends Component {
   };
 
   render() {
+    const dark = this.props.themeDark;
     const {Title} = this.props.route.params;
     let Notes;
 
@@ -50,12 +51,18 @@ class NotesScreen extends Component {
       Notes = this.props.notes.filter(note => note.title === Title);
     }
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, dark && darkTheme.container]}>
         <TouchableOpacity
           onPress={() => this.props.navigation.navigate('MenuScreen')}
           style={styles.notesNav}>
-          <FeatherIcon name="chevron-left" color="#383972" size={30} />
-          <Text style={styles.notesNavText}>My Notes</Text>
+          <FeatherIcon
+            name="chevron-left"
+            color={dark ? 'white' : '#383972'}
+            size={30}
+          />
+          <Text style={[styles.notesNavText, dark && darkTheme.notesNav]}>
+            My Notes
+          </Text>
         </TouchableOpacity>
         <HeaderComp
           title={Title}
@@ -109,9 +116,25 @@ const styles = StyleSheet.create({
   },
 });
 
+const darkTheme = StyleSheet.create({
+  container: {
+    backgroundColor: '#262626',
+  },
+  notesNav: {
+    color: 'white',
+  },
+  categoryTitle: {
+    color: 'white',
+  },
+  categoryCount: {
+    color: 'white',
+  },
+});
+
 const mapStateToProps = state => ({
   userId: state.login.userId,
   notes: state.home.notes,
+  themeDark: state.home.themeDark,
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -37,17 +37,26 @@ class AddNoteScreen extends Component {
   };
 
   render() {
+    const dark = this.props.themeDark;
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, dark && darkTheme.container]}>
         <TouchableOpacity
           onPress={() => this.props.navigation.navigate('MenuScreen')}
           style={styles.notesNav}>
-          <FeatherIcon name="chevron-left" color="#383972" size={30} />
-          <Text style={styles.notesNavText}>My Notes</Text>
+          <FeatherIcon
+            name="chevron-left"
+            color={dark ? 'white' : '#383972'}
+            size={30}
+          />
+          <Text style={[styles.notesNavText, dark && darkTheme.notesNavText]}>
+            My Notes
+          </Text>
         </TouchableOpacity>
         <Text style={styles.heading}>
-          <Text>Add </Text>
-          <Text style={styles.colorBlue}>Note</Text>
+          <Text style={dark && darkTheme.colorRed}>Add </Text>
+          <Text style={[styles.colorBlue, dark && darkTheme.colorWhite]}>
+            Note
+          </Text>
         </Text>
         <View>
           <BasicTextInput
@@ -128,8 +137,27 @@ const styles = StyleSheet.create({
   },
 });
 
+const darkTheme = StyleSheet.create({
+  container: {
+    backgroundColor: '#262626',
+  },
+  notesNavText: {
+    color: 'white',
+  },
+  colorRed: {
+    color: '#ed5b4e',
+  },
+  colorWhite: {
+    color: 'white',
+  },
+  textInput: {
+    backgroundColor: '#262626',
+  },
+});
+
 const mapStateToProps = state => ({
   userId: state.login.userId,
+  themeDark: state.home.themeDark,
 });
 
 const mapDispatchToProps = dispatch => ({
