@@ -4,9 +4,8 @@ import Routes from './src/routes/Routes';
 import {connect} from 'react-redux';
 
 class App extends Component {
-  componentDidMount() {
+  render() {
     const dark = this.props.themeDark;
-    console.log(dark);
     if (dark) {
       StatusBar.setBarStyle('light-content');
       if (Platform.OS === 'android') {
@@ -20,10 +19,6 @@ class App extends Component {
         StatusBar.setTranslucent(true);
       }
     }
-  }
-
-  render() {
-    const dark = this.props.themeDark;
     return (
       <>
         <StatusBar />
@@ -38,6 +33,12 @@ class App extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: 'white',
+    ...Platform.select({
+      android: {
+        paddingTop: 40,
+      },
+    }),
   },
   darkBackground: {
     backgroundColor: '#262626',

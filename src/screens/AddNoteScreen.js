@@ -23,10 +23,6 @@ class AddNoteScreen extends Component {
       Alert.alert('Empty Note', 'Please Fill the Note');
     } else {
       this.newNote();
-      this.setState({
-        title: '',
-        data: '',
-      });
     }
   };
 

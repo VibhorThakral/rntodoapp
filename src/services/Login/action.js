@@ -54,7 +54,6 @@ export const authenticateUserSocial = (
   });
   const {status, id} = await response.json();
   if (status) {
-    console.log('Inside Action Authenticate User', status);
     callback(status);
     dispatch({
       type: AUTHENTICATE_USER_SOCIAL,
@@ -86,7 +85,6 @@ export const signUpSocial = (userInfo, callback) => async dispatch => {
   });
   const {status, body, message} = await response.json();
   if (status) {
-    console.log('Sign Up Social Callback Inside', status);
     callback(status);
     dispatch({
       type: SIGNUP_SOCIAL,

@@ -35,16 +35,11 @@ class LoginScreen extends Component {
       Alert.alert('Empty Password', 'Please Fill the Password');
     } else {
       this.login();
-      this.setState({
-        username: '',
-        password: '',
-      });
     }
   };
 
   userInfoCallBackSocial = async userInfo => {
     const authUserSocialcallback = status => {
-      console.log('Auth User Social Callback', status);
       const callback = signupstatus => {
         signupstatus && this.props.navigation.navigate('MenuScreen');
       };
@@ -203,8 +198,8 @@ const styles = StyleSheet.create({
 });
 
 const mapDispatchToProps = dispatch => ({
-  authenticateUserSocial: (userData, callback) =>
-    dispatch(authenticateUserSocial(userData, callback)),
+  authenticateUserSocial: (userData, userName, callback) =>
+    dispatch(authenticateUserSocial(userData, userName, callback)),
 
   signUpSocial: (userData, callback) =>
     dispatch(signUpSocial(userData, callback)),

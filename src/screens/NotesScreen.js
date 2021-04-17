@@ -97,10 +97,6 @@ const styles = StyleSheet.create({
     paddingTop: 30,
     backgroundColor: 'white',
   },
-  scrollList: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   notesNav: {
     flexDirection: 'row',
     justifyContent: 'flex-start',

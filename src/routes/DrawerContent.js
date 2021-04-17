@@ -3,7 +3,7 @@ import {View, StyleSheet, TouchableOpacity, Switch} from 'react-native';
 import {Avatar, Title, Drawer, Text, TouchableRipple} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {logOut} from '../services/Login/action';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {TOGGLE_THEME} from '../services/Home/actionType';
 
@@ -11,6 +11,7 @@ export function DrawerContent(props) {
   const dispatch = useDispatch();
   const [username, setUsername] = useState('');
   const [isEnable, setIsEnable] = useState(false);
+  const dark = useSelector(state => state.home.themeDark);
   const isOn = () => {
     toggleTheme();
     setIsEnable(prevState => !prevState);
@@ -38,7 +39,7 @@ export function DrawerContent(props) {
   });
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, dark && darkTheme.container]}>
       <View style={styles.drawerContent}>
         <View style={styles.userView}>
           <Avatar.Image
@@ -48,12 +49,16 @@ export function DrawerContent(props) {
             size={100}
           />
           <View>
-            <Title style={styles.title}>{username}</Title>
+            <Title style={[styles.title, dark && darkTheme.colorWhite]}>
+              {username}
+            </Title>
           </View>
         </View>
 
         <View style={styles.preference}>
-          <Text style={styles.themeToggleText}>Dark Theme</Text>
+          <Text style={[styles.themeToggleText, dark && darkTheme.colorWhite]}>
+            Dark Theme
+          </Text>
           <View>
             <Switch
               style={styles.switch}
@@ -78,13 +83,13 @@ export function DrawerContent(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 20,
+    paddingTop: 20,
   },
   drawerContent: {
     flex: 1,
   },
   userView: {
-    marginTop: 15,
+    paddingTop: 15,
     alignItems: 'center',
     marginBottom: 30,
   },
@@ -124,5 +129,14 @@ const styles = StyleSheet.create({
     color: '#383972',
     fontSize: 20,
     fontWeight: '500',
+  },
+});
+
+const darkTheme = StyleSheet.create({
+  container: {
+    backgroundColor: '#262626',
+  },
+  colorWhite: {
+    color: 'white',
   },
 });

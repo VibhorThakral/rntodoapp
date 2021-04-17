@@ -21,7 +21,7 @@ class SignupScreen extends Component {
     phone: '',
   };
 
-  getEmail = text => this.setState({emai: text});
+  getEmail = text => this.setState({email: text});
   getUserName = text => this.setState({username: text});
   getPassword = text => this.setState({password: text});
   getRePassword = text => this.setState({repassword: text});
@@ -33,7 +33,7 @@ class SignupScreen extends Component {
     // Password must have at least one number and at least one special character.
     let usernameCheck = /^[a-z0-9_-]{4,16}$/;
     // Alphanumeric string that may include _ and – having a length of 3 to 16 characters.
-    let phonenoCheck = /^(\+)?([ 0-9]){10,16}$/;
+    let phonenoCheck = /^([ 0-9]){10,16}$/;
     let emailCheck = /(.+)@(.+){2,}\.(.+){2,}/;
 
     if (username === '') {
@@ -69,13 +69,6 @@ class SignupScreen extends Component {
       Alert.alert('Password', 'Repeat Password does not match your password');
     } else {
       this.signUp();
-      this.setState({
-        username: '',
-        password: '',
-        email: '',
-        rePassword: '',
-        phone: '',
-      });
     }
   };
 
